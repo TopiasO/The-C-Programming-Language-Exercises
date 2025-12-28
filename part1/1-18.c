@@ -14,7 +14,7 @@ int main () {
     while ((len = getline(line, MAXLINE)) > 0) 
         if (len > 0)
             /* print "check" to see if trailing tabs and blanks were
-            removed*/
+            remo*/
             printf("%s\"check\"", line);
     return 0;
 }
