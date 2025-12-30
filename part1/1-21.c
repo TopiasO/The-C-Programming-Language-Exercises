@@ -9,7 +9,6 @@ int b_t[3];     /* how many blanks and tabs can replace a string of blanks */
 int getline1(char line[], int maxline);
 void copy(char to[], char from[]);
 void entab(char line[], char temp[], int length);
-void delete_range(char line[], char temp[], int start, int len, int diff);
 void blanks_to_tabs(int position, int blanks);
 void replace_blanks(char line[], char temp[], int position, int len);
 
@@ -68,7 +67,6 @@ void entab(char s[], char temp[], int length) {
             ++blanks;
         } else if (state == IN) {
             if (blanks >= 1) {
-                delete_range(s, temp, i-blanks, blanks, diff);
                 blanks_to_tabs(i-blanks, blanks);
                 replace_blanks(s, temp, i-blanks-diff, blanks);
                 diff += blanks - (b_t[0] + b_t[1] + b_t[2]);
@@ -79,15 +77,6 @@ void entab(char s[], char temp[], int length) {
     }
 }
 
-/* delete_range: delete substring of s from s[start] to s[start+len]
-move the rest of the string to continue at s[start+1] */
-void delete_range(char s[], char temp[], int start, int len, int diff) {
-    int i;
-
-    i = 0;
-    while ((s[i+start-diff] = temp[i+start+len]) != '\0') 
-        ++i;
-}
 
 /* blanks_to_tabs: count how many tabs and blanks can replace a
 string of blanks starting from the given position. Return diff to original string */
